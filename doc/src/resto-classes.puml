@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam linetype ortho
+
+' Classes
+' =======
+
+class Item {
+    + id: UUID
+    + name: String
+    + description: String
+    + price: Double
+    + category: Category
+}
+
+class Category {
+    + id: UUID
+    + name: String
+    + description: String
+}
+
+class Menu {
+    + id: UUID
+    + name: String
+    + description: String
+}
+
+class MenuCategory {
+    + menu: Menu
+    + category: Category
+    + maxItems: Int
+}
+
+class MenuCategoryItem {
+    + item: Item
+    + menuCategory: MenuCategory
+    + additionalPrice: Double
+}
+
+class Order {
+    + id: UUID
+    + table: Table
+    + items: List<OrderItem>
+}
+
+class OrderItem {
+    + id: UUID
+    + order: Order
+    + item: Item?
+    + menu: Menu?
+}
+
+class User {
+    + id: UUID
+    + firstname: String
+    + lastname: String
+}
+
+class Credentials {
+    + id: UUID
+    + username: String
+    + password: String
+}
+
+class Table {
+    + id: UUID,
+    + number: Int
+}
+
+' Relations
+' =========
+
+
+Category "1" - "*" Item
+
+Category "*" -- "*" Menu
+
+MenuCategory ... (Category, Menu)
+
+Item "1..*" - "*" MenuCategory
+
+MenuCategoryItem ... (Item, MenuCategory)
+
+Menu "0..1" -- "*" OrderItem
+
+OrderItem "*" --- "0..1" Item
+
+OrderItem "*" --- "0..1" MenuCategoryItem
+
+Order "*" - "1" User
+
+OrderItem "*" - "1" Order
+
+Table "1" - "*" Order
+
+User "1" - "1" Credentials
+
+@enduml
