@@ -1,0 +1,26 @@
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /console
+  datasource:
+    url: jdbc:h2:file:./data/resto;DB_CLOSE_ON_EXIT=TRUE;
+    username: root
+    password: root
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        hbm2ddl: auto
+
+h2:
+  tcp:
+    enabled: true

@@ -1,4 +1,4 @@
-package com.napos.khelles.com.workshops.resto.data.entities
+package com.workshops.resto.data.entities
 
 import jakarta.persistence.*
 import org.hibernate.annotations.DynamicUpdate

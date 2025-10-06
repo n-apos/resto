@@ -1,11 +1,13 @@
 [versions]
+kotlin = "2.2.20"
+
 spring-boot = "3.3.11"
 spring-dependency = "1.1.0"
-kotlin = "2.2.20"
 h2 = "2.1.214"
 postgres = "42.7.7"
 
-jjwt="4.2.1"
+jjwt = "4.2.1"
+io-jwt = "0.13.0"
 
 coroutines = "1.10.2"
 
@@ -14,6 +16,9 @@ spring-boot-websocket = { module = "org.springframework.boot:spring-boot-starter
 spring-boot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 spring-boot-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
+io-jwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "io-jwt" }
+io-jwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "io-jwt" }
+io-jwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "io-jwt" }
 
 # Auth0
 jjwt = { module = "com.auth0:java-jwt", version.ref = "jjwt" }

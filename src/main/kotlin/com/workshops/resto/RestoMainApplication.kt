@@ -1,4 +1,4 @@
-package com.napos.khelles.com.workshops.resto
+package com.workshops.resto
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
