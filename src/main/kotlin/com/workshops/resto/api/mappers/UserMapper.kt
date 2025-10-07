@@ -18,8 +18,13 @@ class UserMapper : ModelMapper<User, UserDto> {
             )
         }
 
-    override fun toDomain(layer: UserDto): User {
-        throw UnsupportedOperationException("Not implemented")
-    }
+    override fun toDomain(layer: UserDto): User =
+        with(layer) {
+            User(
+                id = id,
+                firstname = firstName,
+                lastname = lastName,
+            )
+        }
 
 }

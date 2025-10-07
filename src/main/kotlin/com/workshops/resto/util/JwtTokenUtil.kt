@@ -11,10 +11,10 @@ import java.util.*
 @Component
 class JwtTokenUtil {
 
-        @Value("\${jwt.secret}")
+        @Value($$"${jwt.secret}")
     private lateinit var secret: String
 
-        @Value("\${jwt.expiration}")
+        @Value($$"${jwt.expiration}")
     private lateinit var expiration: String
 
         fun getUsername(token: String): String = getClaim(token, Claims::getSubject)

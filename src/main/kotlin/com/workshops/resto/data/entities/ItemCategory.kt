@@ -1,6 +1,7 @@
 package com.workshops.resto.data.entities
 
 import jakarta.persistence.*
+import jakarta.persistence.Table
 import org.hibernate.annotations.DynamicUpdate
 import java.util.*
 

@@ -2,34 +2,22 @@ package com.workshops.resto.data.entities
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import org.hibernate.annotations.DynamicUpdate
 import java.util.UUID
 
 @Entity
 @DynamicUpdate
-@Table(name = "items")
-data class Item(
+@Table(name = "categories")
+data class Category(
     @Id
     @GeneratedValue
     @Column(name = "id")
     var id: UUID? = null,
-
     @Column(name = "name", unique = true, nullable = false)
     var name: String = "",
-
     @Column(name = "description")
     var description: String = "",
-
-    @Column(name = "price", nullable = false)
-    var price: Double = 0.0,
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-    var category: Category? = null
 )

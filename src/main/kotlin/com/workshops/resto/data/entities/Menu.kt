@@ -1,6 +1,5 @@
 package com.workshops.resto.data.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
@@ -15,21 +14,24 @@ import java.util.UUID
 
 @Entity
 @DynamicUpdate
-@Table(name = "users")
-data class User(
+@Table(name = "menus")
+data class Menu(
     @Id
     @GeneratedValue
     @Column(name = "id")
     var id: UUID? = null,
-    @Column(name = "firstname")
-    var firstname: String = "",
-    @Column(name = "lastname")
-    var lastname: String = "",
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @Column(name = "name", unique = true, nullable = false)
+    var name: String = "",
+
+    @Column(name = "description")
+    var description: String = "",
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        name = "user_roles",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "role_id")]
+        name = "menu_categories",
+        joinColumns = [JoinColumn(name = "menu_id")],
+        inverseJoinColumns = [JoinColumn(name = "category_id")]
     )
-    var roles: MutableSet<Role> = mutableSetOf()
+    var categories: MutableSet<Category> = mutableSetOf()
 )
