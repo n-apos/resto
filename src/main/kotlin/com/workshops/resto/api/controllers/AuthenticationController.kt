@@ -1,12 +1,11 @@
 package com.workshops.resto.api.controllers
 
-import com.workshops.resto.api.dtos.LoginRequestDto
-import com.workshops.resto.api.dtos.LoginResponseDto
-import com.workshops.resto.api.dtos.RegistrationRequestDto
-import com.workshops.resto.api.dtos.UpdatePasswordRequestDto
-import com.workshops.resto.api.dtos.UserDto
-import com.workshops.resto.api.mappers.UserMapper
-import com.workshops.resto.services.AuthenticationService
+import com.workshops.resto.app.dtos.LoginRequestDto
+import com.workshops.resto.app.dtos.LoginResponseDto
+import com.workshops.resto.app.dtos.RegistrationRequestDto
+import com.workshops.resto.app.dtos.UpdatePasswordRequestDto
+import com.workshops.resto.app.dtos.UserDto
+import com.workshops.resto.app.services.AuthenticationService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,19 +18,18 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/v1/auth")
 class AuthenticationController(
     private val authenticationService: AuthenticationService,
-    private val userMapper: UserMapper
 ) {
 
     @PostMapping("/register")
     fun register(@RequestBody registrationRequest: RegistrationRequestDto): ResponseEntity<UserDto> {
         val user = authenticationService.register(registrationRequest)
-        return ResponseEntity.ok(userMapper.toLayer(user))
+        return ResponseEntity.ok(user)
     }
 
     @PostMapping("/login")
     fun login(@RequestBody loginRequest: LoginRequestDto): ResponseEntity<LoginResponseDto> {
-        val token = authenticationService.login(loginRequest)
-        return ResponseEntity.ok(LoginResponseDto(token))
+        val response = authenticationService.login(loginRequest)
+        return ResponseEntity.ok(response)
     }
 
     @PreAuthorize("isAuthenticated()")

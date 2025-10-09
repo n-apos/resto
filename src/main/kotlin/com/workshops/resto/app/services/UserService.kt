@@ -1,39 +1,37 @@
-package com.workshops.resto.services
+package com.workshops.resto.app.services
 
-import com.workshops.resto.data.entities.User
+import com.workshops.resto.app.dtos.UserDto
+import com.workshops.resto.app.mappers.UserMapper
 import com.workshops.resto.data.repositories.UserRepository
 import org.springframework.stereotype.Service
-import java.util.UUID
+import java.util.*
 
 @Service
-class UserService(private val userRepository: UserRepository) {
+class UserService(
+    private val userRepository: UserRepository,
+    private val userMapper: UserMapper,
+) {
 
     /**
      * Retrieves a list of all users.
-     * @return A list of User entities.
+     * @return A list of UserDto objects.
      */
-    fun getAll(): List<User> {
-        return userRepository.findAll()
-    }
+    fun getAll(): List<UserDto> =
+        userRepository.findAll()
+            .map(userMapper::toLayer)
 
     /**
      * Updates an existing user's information.
-     * @param id The ID of the user to update.
-     * @param userDetails The User object containing the new details.
-     * @return The updated User entity.
+     * @param userDto The DTO containing the new details.
+     * @return The updated UserDto.
      * @throws Exception if the user is not found.
      */
-    fun update(id: UUID, userDetails: User): User {
-        val existingUser = userRepository.findById(id)
-            .orElseThrow { Exception("User not found with id: $id") }
+    fun update(userDto: UserDto): UserDto {
+        val user = userMapper.toDomain(userDto)
 
-        val updatedUser = existingUser.copy(
-            firstname = userDetails.firstname,
-            lastname = userDetails.lastname,
-            roles = userDetails.roles
-        )
+        val savedUser = userRepository.save(user)
 
-        return userRepository.save(updatedUser)
+        return userMapper.toLayer(savedUser)
     }
 
     /**

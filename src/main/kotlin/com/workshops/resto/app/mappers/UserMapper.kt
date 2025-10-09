@@ -1,6 +1,6 @@
-package com.workshops.resto.api.mappers
+package com.workshops.resto.app.mappers
 
-import com.workshops.resto.api.dtos.UserDto
+import com.workshops.resto.app.dtos.UserDto
 import com.workshops.resto.data.entities.User
 import com.workshops.resto.util.ModelMapper
 import org.springframework.stereotype.Component

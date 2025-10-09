@@ -1,4 +1,4 @@
-package com.workshops.resto.api.dtos
+package com.workshops.resto.app.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

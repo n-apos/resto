@@ -1,4 +1,4 @@
-package com.workshops.resto.services
+package com.workshops.resto.app.services
 
 import com.workshops.resto.data.repositories.CredentialsRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority

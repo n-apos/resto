@@ -1,4 +1,4 @@
-package com.workshops.resto.services
+package com.workshops.resto.app.services
 
 import com.workshops.resto.data.entities.MenuCategory
 import com.workshops.resto.data.repositories.MenuCategoryRepository

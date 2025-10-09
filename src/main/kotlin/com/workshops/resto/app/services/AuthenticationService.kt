@@ -1,8 +1,11 @@
-package com.workshops.resto.services
+package com.workshops.resto.app.services
 
-import com.workshops.resto.api.dtos.LoginRequestDto
-import com.workshops.resto.api.dtos.RegistrationRequestDto
-import com.workshops.resto.api.dtos.UpdatePasswordRequestDto
+import com.workshops.resto.app.dtos.LoginRequestDto
+import com.workshops.resto.app.dtos.LoginResponseDto
+import com.workshops.resto.app.dtos.RegistrationRequestDto
+import com.workshops.resto.app.dtos.UpdatePasswordRequestDto
+import com.workshops.resto.app.dtos.UserDto
+import com.workshops.resto.app.mappers.UserMapper
 import com.workshops.resto.data.entities.Credentials
 import com.workshops.resto.data.entities.User
 import com.workshops.resto.data.repositories.CredentialsRepository
@@ -21,10 +24,11 @@ class AuthenticationService @Autowired constructor(
     private val passwordEncoder: PasswordEncoder,
     private val authenticationManager: AuthenticationManager,
     private val jwtTokenUtil: JwtTokenUtil,
-    private val userDetailsService: UserDetailsService
+    private val userDetailsService: UserDetailsService,
+    private val userMapper: UserMapper
 ) {
 
-    fun register(registrationRequest: RegistrationRequestDto): User {
+    fun register(registrationRequest: RegistrationRequestDto): UserDto {
         val user = User(
             firstname = registrationRequest.firstname,
             lastname = registrationRequest.lastname,
@@ -36,15 +40,17 @@ class AuthenticationService @Autowired constructor(
         )
         val encodedPassword = passwordEncoder.encode(credentials.password)
         credentials = credentialsRepository.save(credentials.copy(password = encodedPassword))
-        return credentials.user!!
+        return userMapper.toLayer(credentials.user!!)
     }
 
-    fun login(loginRequest: LoginRequestDto): String {
+    fun login(loginRequest: LoginRequestDto): LoginResponseDto {
         authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password)
         )
         val userDetails = userDetailsService.loadUserByUsername(loginRequest.username)
-        return jwtTokenUtil.generateToken(userDetails)
+        return LoginResponseDto(
+            token = jwtTokenUtil.generateToken(userDetails)
+        )
     }
 
     fun updatePassword(updatePasswordRequest: UpdatePasswordRequestDto) {

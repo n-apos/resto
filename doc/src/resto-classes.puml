@@ -42,13 +42,21 @@ class Order {
     + id: UUID
     + table: Table
     + items: List<OrderItem>
+    + menus: List<OrderMenuItem>
 }
 
 class OrderItem {
     + id: UUID
     + order: Order
     + item: Item?
-    + menu: Menu?
+    + quantity: Int
+}
+
+class OrderMenu {
+    + id: UUID
+    + order: Order
+    + items: List<MenuCategoryItem>
+    + quantity: Int
 }
 
 class User {
@@ -82,15 +90,15 @@ Item "1..*" - "*" MenuCategory
 
 MenuCategoryItem ... (Item, MenuCategory)
 
-Menu "0..1" -- "*" OrderItem
-
 OrderItem "*" --- "0..1" Item
-
-OrderItem "*" --- "0..1" MenuCategoryItem
 
 Order "*" - "1" User
 
 OrderItem "*" - "1" Order
+
+OrderMenu "*" -- "1" Order
+
+OrderMenu "*" -- "*" MenuCategoryItem
 
 Table "1" - "*" Order
 
