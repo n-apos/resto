@@ -14,5 +14,5 @@ data class MenuDto(
     val description: String,
 
     @param:JsonProperty("categories")
-    val categories: List<MenuCategoryDto>
+    val categories: List<MenuCategorySpecDto> = listOf()
 )

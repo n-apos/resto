@@ -6,6 +6,7 @@ import java.util.UUID
 data class TableDto(
     @param:JsonProperty("id")
     val id: UUID?,
+
     @param:JsonProperty("number")
-    val number: Int,
+    val number: Int
 )

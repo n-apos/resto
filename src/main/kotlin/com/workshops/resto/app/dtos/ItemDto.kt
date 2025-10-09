@@ -1,16 +1,21 @@
 package com.workshops.resto.app.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import java.util.UUID
 
 data class ItemDto(
     @param:JsonProperty("id")
-    val id: String,
+    val id: UUID?,
+
     @param:JsonProperty("name")
     val name: String,
+
     @param:JsonProperty("description")
     val description: String,
+
     @param:JsonProperty("price")
     val price: Double,
-    @param:JsonProperty("category")
-    val category: CategoryDto,
+
+    @param:JsonProperty("category_id")
+    val categoryId: UUID?
 )

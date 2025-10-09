@@ -14,5 +14,5 @@ data class UserDto(
     val lastName: String,
 
     @param:JsonProperty("roles")
-    val roles: List<String>
+    val roles: Set<String> = setOf()
 )

@@ -1,37 +1,77 @@
 package com.workshops.resto.app.services
 
-import com.workshops.resto.data.entities.OrderItem
+import com.workshops.resto.app.dtos.OrderItemDto
+import com.workshops.resto.app.mappers.OrderItemMapper
+import com.workshops.resto.data.repositories.ItemRepository
+import com.workshops.resto.data.repositories.MenuRepository
 import com.workshops.resto.data.repositories.OrderItemRepository
+import com.workshops.resto.data.repositories.OrderRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-class OrderItemService(private val orderItemRepository: OrderItemRepository) {
+class OrderItemService(
+    private val orderItemRepository: OrderItemRepository,
+    private val orderRepository: OrderRepository,
+    private val itemRepository: ItemRepository,
+    private val menuRepository: MenuRepository,
+    private val orderItemMapper: OrderItemMapper
+) {
 
-    fun create(orderItem: OrderItem): OrderItem {
-        return orderItemRepository.save(orderItem)
+    @Transactional
+    fun create(dto: OrderItemDto): OrderItemDto {
+        val orderItem = orderItemMapper.toDomain(dto)
+
+        // Fetch and set the managed parent entities
+        orderItem.order = orderRepository.findById(dto.orderId)
+            .orElseThrow { Exception("Order not found with id: ${dto.orderId}") }
+        
+        dto.itemId?.let {
+            orderItem.item = itemRepository.findById(it)
+                .orElseThrow { Exception("Item not found with id: $it") }
+        }
+        dto.menuId?.let {
+            orderItem.menu = menuRepository.findById(it)
+                .orElseThrow { Exception("Menu not found with id: $it") }
+        }
+
+        val savedItem = orderItemRepository.save(orderItem)
+        return orderItemMapper.toLayer(savedItem)
     }
 
-    fun update(id: UUID, orderItemDetails: OrderItem): OrderItem {
-        val existingOrderItem = orderItemRepository.findById(id)
+    @Transactional
+    fun update(id: UUID, dto: OrderItemDto): OrderItemDto {
+        if (!orderItemRepository.existsById(id)) {
+            throw Exception("OrderItem not found with id: $id")
+        }
+        val orderItem = orderItemMapper.toDomain(dto.copy(id = id))
+
+        // Fetch and set the managed parent entities
+        orderItem.order = orderRepository.findById(dto.orderId)
+            .orElseThrow { Exception("Order not found with id: ${dto.orderId}") }
+
+        orderItem.item = dto.itemId?.let {
+            itemRepository.findById(it)
+                .orElseThrow { Exception("Item not found with id: $it") }
+        }
+        orderItem.menu = dto.menuId?.let {
+            menuRepository.findById(it)
+                .orElseThrow { Exception("Menu not found with id: $it") }
+        }
+
+        val savedItem = orderItemRepository.save(orderItem)
+        return orderItemMapper.toLayer(savedItem)
+    }
+
+    fun getAll(): List<OrderItemDto> {
+        return orderItemRepository.findAll().map(orderItemMapper::toLayer)
+    }
+
+    fun getById(id: UUID): OrderItemDto {
+        val orderItem = orderItemRepository.findById(id)
             .orElseThrow { Exception("OrderItem not found with id: $id") }
-
-        val updatedOrderItem = existingOrderItem.copy(
-            order = orderItemDetails.order,
-            item = orderItemDetails.item,
-            menu = orderItemDetails.menu
-        )
-
-        return orderItemRepository.save(updatedOrderItem)
-    }
-
-    fun getAll(): List<OrderItem> {
-        return orderItemRepository.findAll()
-    }
-
-    fun getById(id: UUID): OrderItem {
-        return orderItemRepository.findById(id)
-            .orElseThrow { Exception("OrderItem not found with id: $id") }
+        return orderItemMapper.toLayer(orderItem)
     }
 
     fun delete(id: UUID) {

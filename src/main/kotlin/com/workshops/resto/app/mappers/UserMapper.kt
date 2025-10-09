@@ -8,23 +8,22 @@ import org.springframework.stereotype.Component
 @Component
 class UserMapper : ModelMapper<User, UserDto> {
 
-    override fun toLayer(domain: User): UserDto =
-        with(domain) {
-            UserDto(
-                id = id!!,
-                firstName = firstname,
-                lastName = lastname,
-                roles = roles.map { it.name },
-            )
-        }
+    override fun toLayer(domain: User): UserDto {
+        return UserDto(
+            id = domain.id,
+            firstName = domain.firstname,
+            lastName = domain.lastname,
+            roles = domain.roles.map { it.name }.toSet()
+        )
+    }
 
-    override fun toDomain(layer: UserDto): User =
-        with(layer) {
-            User(
-                id = id,
-                firstname = firstName,
-                lastname = lastName,
-            )
-        }
-
+    override fun toDomain(layer: UserDto): User {
+        // Note: When mapping from DTO to entity, we don't map roles
+        // to prevent potential security issues. Role management should be a separate, explicit process.
+        return User(
+            id = layer.id,
+            firstname = layer.firstName,
+            lastname = layer.lastName
+        )
+    }
 }
