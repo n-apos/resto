@@ -4,7 +4,7 @@ import com.workshops.resto.app.dtos.TableDto
 import com.workshops.resto.app.mappers.TableMapper
 import com.workshops.resto.data.repositories.TableRepository
 import org.springframework.stereotype.Service
-import java.util.UUID
+import java.util.*
 
 @Service
 class TableService(

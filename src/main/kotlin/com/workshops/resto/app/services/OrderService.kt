@@ -3,14 +3,10 @@ package com.workshops.resto.app.services
 import com.workshops.resto.app.dtos.OrderDto
 import com.workshops.resto.app.mappers.OrderMapper
 import com.workshops.resto.data.entities.OrderItem
-import com.workshops.resto.data.repositories.ItemRepository
-import com.workshops.resto.data.repositories.MenuRepository
-import com.workshops.resto.data.repositories.OrderRepository
-import com.workshops.resto.data.repositories.TableRepository
-import com.workshops.resto.data.repositories.UserRepository
+import com.workshops.resto.data.repositories.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
 class OrderService(

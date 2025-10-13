@@ -5,7 +5,7 @@ import com.workshops.resto.app.mappers.ItemMapper
 import com.workshops.resto.data.repositories.CategoryRepository
 import com.workshops.resto.data.repositories.ItemRepository
 import org.springframework.stereotype.Service
-import java.util.UUID
+import java.util.*
 
 @Service
 class ItemService(

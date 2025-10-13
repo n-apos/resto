@@ -1,10 +1,6 @@
 package com.workshops.resto.app.services
 
-import com.workshops.resto.app.dtos.LoginRequestDto
-import com.workshops.resto.app.dtos.LoginResponseDto
-import com.workshops.resto.app.dtos.RegistrationRequestDto
-import com.workshops.resto.app.dtos.UpdatePasswordRequestDto
-import com.workshops.resto.app.dtos.UserDto
+import com.workshops.resto.app.dtos.*
 import com.workshops.resto.app.mappers.UserMapper
 import com.workshops.resto.data.entities.Credentials
 import com.workshops.resto.data.entities.User

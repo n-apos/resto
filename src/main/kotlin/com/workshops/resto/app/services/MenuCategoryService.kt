@@ -2,19 +2,22 @@ package com.workshops.resto.app.services
 
 import com.workshops.resto.app.dtos.MenuCategoryDto
 import com.workshops.resto.app.mappers.MenuCategoryMapper
+import com.workshops.resto.data.entities.MenuCategoryItem
 import com.workshops.resto.data.entities.embeddables.MenuCategoryId
 import com.workshops.resto.data.repositories.CategoryRepository
+import com.workshops.resto.data.repositories.ItemRepository
 import com.workshops.resto.data.repositories.MenuCategoryRepository
 import com.workshops.resto.data.repositories.MenuRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
 class MenuCategoryService(
     private val menuCategoryRepository: MenuCategoryRepository,
     private val menuRepository: MenuRepository,
     private val categoryRepository: CategoryRepository,
+    private val itemRepository: ItemRepository,
     private val menuCategoryMapper: MenuCategoryMapper
 ) {
 
@@ -31,6 +34,13 @@ class MenuCategoryService(
         menuCategory.menu = menu
         menuCategory.category = category
 
+        // Fetch and set the child item entities
+        menuCategory.items.forEach { menuCategoryItem ->
+            val item = itemRepository.findById(menuCategoryItem.item?.id!!)
+                .orElseThrow { Exception("Item not found with id: ${menuCategoryItem.item?.id}") }
+            menuCategoryItem.item = item
+        }
+
         val savedMenuCategory = menuCategoryRepository.save(menuCategory)
         return menuCategoryMapper.toLayer(savedMenuCategory)
     }
@@ -41,8 +51,21 @@ class MenuCategoryService(
         val existingMenuCategory = menuCategoryRepository.findById(id)
             .orElseThrow { Exception("MenuCategory not found with id: $id") }
 
-        // In this context, only maxItems is updatable
+        // Update maxItems
         existingMenuCategory.maxItems = dto.maxItems
+
+        // Clear existing items and rebuild the collection
+        existingMenuCategory.items.clear()
+        dto.itemIds.forEach { itemId ->
+            val item = itemRepository.findById(itemId)
+                .orElseThrow { Exception("Item not found with id: $itemId") }
+            existingMenuCategory.items.add(
+                MenuCategoryItem(
+                    menuCategory = existingMenuCategory,
+                    item = item
+                )
+            )
+        }
 
         val savedMenuCategory = menuCategoryRepository.save(existingMenuCategory)
         return menuCategoryMapper.toLayer(savedMenuCategory)
@@ -68,7 +91,6 @@ class MenuCategoryService(
     }
 
     fun delete(ids: List<MenuCategoryId>) {
-        // The caller is responsible for constructing the list of composite IDs
         menuCategoryRepository.deleteAllById(ids)
     }
 

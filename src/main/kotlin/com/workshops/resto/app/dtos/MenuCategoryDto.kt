@@ -1,7 +1,7 @@
 package com.workshops.resto.app.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.UUID
+import java.util.*
 
 data class MenuCategoryDto(
     @param:JsonProperty("menu_id")
@@ -11,5 +11,8 @@ data class MenuCategoryDto(
     val categoryId: UUID,
 
     @param:JsonProperty("max_items")
-    val maxItems: Int
+    val maxItems: Int,
+
+    @param:JsonProperty("items")
+    val itemIds: List<UUID> = listOf()
 )

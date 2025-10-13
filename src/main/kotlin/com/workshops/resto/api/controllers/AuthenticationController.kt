@@ -1,18 +1,10 @@
 package com.workshops.resto.api.controllers
 
-import com.workshops.resto.app.dtos.LoginRequestDto
-import com.workshops.resto.app.dtos.LoginResponseDto
-import com.workshops.resto.app.dtos.RegistrationRequestDto
-import com.workshops.resto.app.dtos.UpdatePasswordRequestDto
-import com.workshops.resto.app.dtos.UserDto
+import com.workshops.resto.app.dtos.*
 import com.workshops.resto.app.services.AuthenticationService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/auth")

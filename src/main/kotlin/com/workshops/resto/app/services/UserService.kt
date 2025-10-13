@@ -3,6 +3,8 @@ package com.workshops.resto.app.services
 import com.workshops.resto.app.dtos.UserDto
 import com.workshops.resto.app.mappers.UserMapper
 import com.workshops.resto.data.repositories.UserRepository
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -19,6 +21,23 @@ class UserService(
     fun getAll(): List<UserDto> =
         userRepository.findAll()
             .map(userMapper::toLayer)
+
+    fun getAllAdmins(): List<UserDto> =
+        userRepository.getAdmins()
+            .map(userMapper::toLayer)
+
+    fun getById(id: UUID): UserDto =
+        userRepository.findById(id)
+            .orElseThrow { Exception("User not found with id: $id") }
+            .let(userMapper::toLayer)
+
+
+    fun getMe(): UserDto {
+        val details = (SecurityContextHolder.getContext().authentication.principal as UserDetails)
+        return userRepository.findByUsername(details.username)
+            .getOrThrow()
+            .let(userMapper::toLayer)
+    }
 
     /**
      * Updates an existing user's information.

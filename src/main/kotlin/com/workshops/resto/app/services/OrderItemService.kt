@@ -8,7 +8,7 @@ import com.workshops.resto.data.repositories.OrderItemRepository
 import com.workshops.resto.data.repositories.OrderRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
 class OrderItemService(
@@ -26,7 +26,7 @@ class OrderItemService(
         // Fetch and set the managed parent entities
         orderItem.order = orderRepository.findById(dto.orderId)
             .orElseThrow { Exception("Order not found with id: ${dto.orderId}") }
-        
+
         dto.itemId?.let {
             orderItem.item = itemRepository.findById(it)
                 .orElseThrow { Exception("Item not found with id: $it") }

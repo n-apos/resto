@@ -1,7 +1,7 @@
 package com.workshops.resto.app.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.UUID
+import java.util.*
 
 data class OrderItemSpecDto(
     @param:JsonProperty("item_id")

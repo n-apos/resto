@@ -6,7 +6,7 @@ import com.workshops.resto.util.ModelMapper
 import org.springframework.stereotype.Component
 
 @Component
-class CategoryMapper: ModelMapper<Category, CategoryDto> {
+class CategoryMapper : ModelMapper<Category, CategoryDto> {
 
     override fun toLayer(domain: Category): CategoryDto =
         with(domain) {

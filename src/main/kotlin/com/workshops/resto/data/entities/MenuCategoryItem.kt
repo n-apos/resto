@@ -1,14 +1,7 @@
 package com.workshops.resto.data.entities
 
 import com.workshops.resto.data.entities.embeddables.MenuCategoryItemId
-import jakarta.persistence.Column
-import jakarta.persistence.EmbeddedId
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinColumns
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.MapsId
+import jakarta.persistence.*
 import jakarta.persistence.Table
 import org.hibernate.annotations.DynamicUpdate
 
@@ -36,4 +29,4 @@ data class MenuCategoryItem(
     @Column(name = "additional_price", nullable = false)
     var additionalPrice: Double = 0.0,
 
-)
+    )
