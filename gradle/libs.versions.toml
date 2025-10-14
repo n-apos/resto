@@ -2,7 +2,7 @@
 kotlin = "2.2.20"
 springdoc = "2.5.0"
 
-spring-boot = "3.3.11"
+spring-boot = "3.5.3"
 spring-dependency = "1.1.0"
 h2 = "2.1.214"
 postgres = "42.7.7"
