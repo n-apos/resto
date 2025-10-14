@@ -20,6 +20,9 @@ jwt:
   expiration: ${JWT_EXPIRATION}
 
 springdoc:
-  # All swagger-ui properties removed to allow defaults to work with the reverse proxy
   api-docs:
-    path: /v3/api-docs
+    path: ./v3/api-docs
+  swagger-ui:
+    disable-swagger-default-url: true
+    url: ./v3/api-docs
+    configUrl: ./v3/api-docs/swagger-config
