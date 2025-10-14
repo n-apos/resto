@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      # Build jar
+      - name: Build artifact
+        run: ./gradlew assemble
+  dockerize:
+    needs: [ build ]
+    runs-on: self-hosted
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      # Read microservice current version
+      - name: Read version
+        id: version
+        run: |
+          echo "VERSION=$(./gradlew printVersion | egrep -o "Version:.*" | awk '{print $2}')" >> $GITHUB_OUTPUT
+          echo "VERSION=$(./gradlew printVersion | egrep -o "Version:.*" | awk '{print $2}')" >> $GITHUB_ENV
+      # Build docker image
+      - name: Build docker image
+        run: |
+          docker build --build-arg="version=$VERSION" . \
+            -t docker.n-apos.com/workshops-resto:$VERSION \
+            -t docker.n-apos.com/workshops-resto:latest \
+            --platform=linux/amd64
+  register:
+    needs: [ dockerize ]
+    runs-on: self-hosted
+    steps:
+      - name: Setup version
+        run: echo "VERSION=${{ needs.dockerize.outputs.version }}" >> $GITHUB_ENV
+      - name: Push as current version
+        run: docker push docker.n-apos.com/workshops-resto:$VERSION
+      - name: Push as latest
+        run: docker push docker.n-apos.com/workshops-resto:latest

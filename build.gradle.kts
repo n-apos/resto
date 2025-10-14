@@ -34,6 +34,14 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register("printVersion") {
+    doLast {
+        println("Version: ${project.version}")
+    }
+}
+
+
 kotlin {
     jvmToolchain(17)
 }
