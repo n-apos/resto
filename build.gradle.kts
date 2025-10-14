@@ -23,6 +23,8 @@ dependencies {
     runtimeOnly(libs.io.jwt.impl)
     runtimeOnly(libs.io.jwt.jackson)
 
+    runtimeOnly(libs.springdoc)
+
     implementation(libs.h2)
     implementation(libs.postgres)
     implementation(libs.kotlinx.coroutines.core)

@@ -1,5 +1,6 @@
 [versions]
 kotlin = "2.2.20"
+springdoc = "2.5.0"
 
 spring-boot = "3.3.11"
 spring-dependency = "1.1.0"
@@ -27,6 +28,7 @@ h2 = { module = "com.h2database:h2", version.ref = "h2" }
 postgres = { module = "org.postgresql:postgresql", version.ref = "postgres" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+springdoc = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
