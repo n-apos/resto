@@ -1,7 +1,7 @@
 services:
 
   resto-ws:
-    build: .
+    image: docker.n-apos.com/workshops-resto
     container_name: resto-ws
     env_file:
       - ws.env
@@ -14,6 +14,7 @@ services:
   resto-db:
     image: postgres:alpine
     container_name: resto-db
+    hostname: resto-db
     env_file:
       - db.env
     volumes:
