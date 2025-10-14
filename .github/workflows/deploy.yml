@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [ "Build" ]
+    types: [ completed ]
+    branches:
+      - "main"
+
+jobs:
+  deploy-secrets:
+    runs-on: self-hosted
+    # This dynamically chooses environment to deploy based on branch name
+    environment: production
+    steps:
+      - name: Deploy webservice secrets
+        run: |
+          echo "${{ secrets.WS_ENV }}" > ws.env
+          scp ws.env ${{ vars.DEPLOYMENT_HOST }}:~/${{ vars.DEPLOYMENT_PATH }}/
+          rm -rvf *.env
+
+      - name: Deploy database secrets
+        run: |
+          echo "${{ secrets.DB_ENV }}" > db.env
+          scp db.env ${{ vars.DEPLOYMENT_HOST }}:~/${{ vars.DEPLOYMENT_PATH }}/
+          rm -rvf *.env
+
+  deploy:
+    runs-on: self-hosted
+    environment: production
+    needs: [ deploy-secrets ]
+    steps:
+      - name: Pull latest repository changes
+        run: |
+          ssh ${{ vars.DEPLOYMENT_HOST }} 'cd ~/${{ vars.DEPLOYMENT_PATH }} && git pull --rebase'
+      - name: Pull latest images
+        run: |
+          ssh ${{ vars.DEPLOYMENT_HOST }} 'cd ~/${{ vars.DEPLOYMENT_PATH }} && docker compose pull'
+      - name: Recompose docker containers
+        run: |
+          ssh ${{ vars.DEPLOYMENT_HOST }} 'cd ~/${{ vars.DEPLOYMENT_PATH }} && docker compose up -d --build'
+      - name: Clean environment files
+        run: |
+          ssh ${{ vars.DEPLOYMENT_HOST }} 'rm -rf ~/${{ vars.DEPLOYMENT_PATH }}/*.env'

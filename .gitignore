@@ -46,3 +46,6 @@ bin/
 
 ### H2 ###
 /data
+
+### Environment ###
+*.env
