@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_HOST:resto-db}:${DB_PORT:5432}/resto
+    url: jdbc:postgresql://${DB_HOST:resto-db}:${DB_PORT:5432}/resto-db
     poll-size: 30
   jpa:
     show-sql: false
