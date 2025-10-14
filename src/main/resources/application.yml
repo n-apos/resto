@@ -21,8 +21,7 @@ jwt:
 
 springdoc:
   api-docs:
-    path: /resto/v3/api-docs
+    path: /v3/api-docs
   swagger-ui:
-    disable-swagger-default-url: true
-    url: /resto/v3/api-docs
-    config-url: /resto/v3/api-docs/swagger-config
+    url: /v3/api-docs
+    config-url: /v3/api-docs/swagger-config
