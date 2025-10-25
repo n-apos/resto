@@ -2,6 +2,8 @@ package com.workshops.resto.app.mappers
 
 import com.workshops.resto.app.dtos.OrderDto
 import com.workshops.resto.app.dtos.OrderItemSpecDto
+import com.workshops.resto.data.entities.Item
+import com.workshops.resto.data.entities.Meal
 import com.workshops.resto.data.entities.Order
 import com.workshops.resto.data.entities.OrderItem
 import com.workshops.resto.data.entities.Table
@@ -21,7 +23,7 @@ class OrderMapper : ModelMapper<Order, OrderDto> {
                 items = items.map { orderItem ->
                     OrderItemSpecDto(
                         itemId = orderItem.item?.id,
-                        menuId = orderItem.menu?.id
+                        mealId = orderItem.meal?.id
                     )
                 }
             )
@@ -38,8 +40,8 @@ class OrderMapper : ModelMapper<Order, OrderDto> {
                 OrderItem(
                     order = order,
                     // The service will fetch the full entities
-                    item = it.itemId?.let { com.workshops.resto.data.entities.Item(id = it) },
-                    menu = it.menuId?.let { com.workshops.resto.data.entities.Menu(id = it) }
+                    item = it.itemId?.let { Item(id = it) },
+                    meal = it.mealId?.let { Meal(id = it) }
                 )
             }.toMutableList()
             order.items = orderItems

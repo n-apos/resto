@@ -3,7 +3,7 @@ package com.workshops.resto.app.services
 import com.workshops.resto.app.dtos.OrderItemDto
 import com.workshops.resto.app.mappers.OrderItemMapper
 import com.workshops.resto.data.repositories.ItemRepository
-import com.workshops.resto.data.repositories.MenuRepository
+import com.workshops.resto.data.repositories.MealRepository
 import com.workshops.resto.data.repositories.OrderItemRepository
 import com.workshops.resto.data.repositories.OrderRepository
 import org.springframework.stereotype.Service
@@ -15,7 +15,7 @@ class OrderItemService(
     private val orderItemRepository: OrderItemRepository,
     private val orderRepository: OrderRepository,
     private val itemRepository: ItemRepository,
-    private val menuRepository: MenuRepository,
+    private val mealRepository: MealRepository,
     private val orderItemMapper: OrderItemMapper
 ) {
 
@@ -31,8 +31,8 @@ class OrderItemService(
             orderItem.item = itemRepository.findById(it)
                 .orElseThrow { Exception("Item not found with id: $it") }
         }
-        dto.menuId?.let {
-            orderItem.menu = menuRepository.findById(it)
+        dto.mealId?.let {
+            orderItem.meal = mealRepository.findById(it)
                 .orElseThrow { Exception("Menu not found with id: $it") }
         }
 
@@ -55,8 +55,8 @@ class OrderItemService(
             itemRepository.findById(it)
                 .orElseThrow { Exception("Item not found with id: $it") }
         }
-        orderItem.menu = dto.menuId?.let {
-            menuRepository.findById(it)
+        orderItem.meal = dto.mealId?.let {
+            mealRepository.findById(it)
                 .orElseThrow { Exception("Menu not found with id: $it") }
         }
 

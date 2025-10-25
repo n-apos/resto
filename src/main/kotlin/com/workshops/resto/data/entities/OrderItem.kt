@@ -25,6 +25,6 @@ data class OrderItem(
     var item: Item? = null,
 
     @ManyToOne
-    @JoinColumn(name = "menu_id")
-    var menu: Menu? = null
+    @JoinColumn(name = "meal_id")
+    var meal: Meal? = null
 )

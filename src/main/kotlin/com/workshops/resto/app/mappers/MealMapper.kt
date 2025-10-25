@@ -1,24 +1,24 @@
 package com.workshops.resto.app.mappers
 
-import com.workshops.resto.app.dtos.MenuCategorySpecDto
-import com.workshops.resto.app.dtos.MenuDto
+import com.workshops.resto.app.dtos.MealCategorySpecDto
+import com.workshops.resto.app.dtos.MealDto
 import com.workshops.resto.data.entities.Category
-import com.workshops.resto.data.entities.Menu
-import com.workshops.resto.data.entities.MenuCategory
+import com.workshops.resto.data.entities.Meal
+import com.workshops.resto.data.entities.MealCategory
 import com.workshops.resto.util.ModelMapper
 import org.springframework.stereotype.Component
 
 @Component
-class MenuMapper : ModelMapper<Menu, MenuDto> {
+class MealMapper : ModelMapper<Meal, MealDto> {
 
-    override fun toLayer(domain: Menu): MenuDto =
+    override fun toLayer(domain: Meal): MealDto =
         with(domain) {
-            MenuDto(
+            MealDto(
                 id = id,
                 name = name,
                 description = description,
                 categories = categories.map {
-                    MenuCategorySpecDto(
+                    MealCategorySpecDto(
                         categoryId = it.category?.id!!,
                         maxItems = it.maxItems
                     )
@@ -26,23 +26,21 @@ class MenuMapper : ModelMapper<Menu, MenuDto> {
             )
         }
 
-    override fun toDomain(layer: MenuDto): Menu =
+    override fun toDomain(layer: MealDto): Meal =
         with(layer) {
-            val menu = Menu(
+            val meal = Meal(
                 id = id,
                 name = name,
                 description = description
             )
-            // The service will be responsible for fetching the full category entities
-            // and creating the MenuCategory join entities.
-            val menuCategories = categories.map {
-                MenuCategory(
-                    menu = menu,
+            val mealCategories = categories.map {
+                MealCategory(
+                    meal = meal,
                     category = Category(id = it.categoryId),
                     maxItems = it.maxItems
                 )
             }.toMutableSet()
-            menu.categories = menuCategories
-            menu
+            meal.categories = mealCategories
+            meal
         }
 }

@@ -20,21 +20,21 @@ class Category {
     + description: String
 }
 
-class Menu {
+class Meal {
     + id: UUID
     + name: String
     + description: String
 }
 
-class MenuCategory {
-    + menu: Menu
+class MealCategory {
+    + menu: Meal
     + category: Category
     + maxItems: Int
 }
 
-class MenuCategoryItem {
+class MealCategoryItem {
     + item: Item
-    + menuCategory: MenuCategory
+    + menuCategory: MealCategory
     + additionalPrice: Double
 }
 
@@ -42,7 +42,7 @@ class Order {
     + id: UUID
     + table: Table
     + items: List<OrderItem>
-    + menus: List<OrderMenuItem>
+    + meals: List<OrderMealItem>
 }
 
 class OrderItem {
@@ -52,10 +52,10 @@ class OrderItem {
     + quantity: Int
 }
 
-class OrderMenu {
+class OrderMeal {
     + id: UUID
     + order: Order
-    + items: List<MenuCategoryItem>
+    + items: List<MealCategoryItem>
     + quantity: Int
 }
 
@@ -82,13 +82,13 @@ class Table {
 
 Category "1" - "*" Item
 
-Category "*" -- "*" Menu
+Category "*" -- "*" Meal
 
-MenuCategory ... (Category, Menu)
+MealCategory ... (Category, Meal)
 
-Item "1..*" - "*" MenuCategory
+Item "1..*" - "*" MealCategory
 
-MenuCategoryItem ... (Item, MenuCategory)
+MealCategoryItem ... (Item, MealCategory)
 
 OrderItem "*" --- "0..1" Item
 
@@ -96,9 +96,9 @@ Order "*" - "1" User
 
 OrderItem "*" - "1" Order
 
-OrderMenu "*" -- "1" Order
+OrderMeal "*" -- "1" Order
 
-OrderMenu "*" -- "*" MenuCategoryItem
+OrderMeal "*" -- "*" MealCategoryItem
 
 Table "1" - "*" Order
 

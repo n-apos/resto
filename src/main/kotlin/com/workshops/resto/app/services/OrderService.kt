@@ -14,7 +14,7 @@ class OrderService(
     private val userRepository: UserRepository,
     private val tableRepository: TableRepository,
     private val itemRepository: ItemRepository,
-    private val menuRepository: MenuRepository,
+    private val mealRepository: MealRepository,
     private val orderMapper: OrderMapper
 ) {
 
@@ -36,8 +36,8 @@ class OrderService(
                 orderItem.item = itemRepository.findById(it)
                     .orElseThrow { Exception("Item not found with id: $it") }
             }
-            specDto.menuId?.let {
-                orderItem.menu = menuRepository.findById(it)
+            specDto.mealId?.let {
+                orderItem.meal = mealRepository.findById(it)
                     .orElseThrow { Exception("Menu not found with id: $it") }
             }
             order.items.add(orderItem)
@@ -66,8 +66,8 @@ class OrderService(
                 orderItem.item = itemRepository.findById(it)
                     .orElseThrow { Exception("Item not found with id: $it") }
             }
-            specDto.menuId?.let {
-                orderItem.menu = menuRepository.findById(it)
+            specDto.mealId?.let {
+                orderItem.meal = mealRepository.findById(it)
                     .orElseThrow { Exception("Menu not found with id: $it") }
             }
             existingOrder.items.add(orderItem)
