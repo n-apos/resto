@@ -1,21 +1,21 @@
 package com.workshops.resto.data.entities
 
-import com.workshops.resto.data.entities.embeddables.MenuCategoryId
+import com.workshops.resto.data.entities.embeddables.MealCategoryId
 import jakarta.persistence.*
 import jakarta.persistence.Table
 import org.hibernate.annotations.DynamicUpdate
 
 @Entity
 @DynamicUpdate
-@Table(name = "menu_categories")
-data class MenuCategory(
+@Table(name = "meal_categories")
+data class MealCategory(
     @EmbeddedId
-    var id: MenuCategoryId = MenuCategoryId(),
+    var id: MealCategoryId = MealCategoryId(),
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("menuId")
-    @JoinColumn(name = "menu_id")
-    var menu: Menu? = null,
+    @MapsId("mealId")
+    @JoinColumn(name = "meal_id")
+    var meal: Meal? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("categoryId")
@@ -25,6 +25,6 @@ data class MenuCategory(
     @Column(name = "max_items")
     var maxItems: Int = 0,
 
-    @OneToMany(mappedBy = "menuCategory", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var items: MutableSet<MenuCategoryItem> = mutableSetOf()
+    @OneToMany(mappedBy = "mealCategory", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var items: MutableSet<MealCategoryItem> = mutableSetOf()
 )

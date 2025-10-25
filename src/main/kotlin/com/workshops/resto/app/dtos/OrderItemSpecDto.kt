@@ -7,6 +7,6 @@ data class OrderItemSpecDto(
     @param:JsonProperty("item_id")
     val itemId: UUID? = null,
 
-    @param:JsonProperty("menu_id")
-    val menuId: UUID? = null
+    @param:JsonProperty("meal_id")
+    val mealId: UUID? = null
 )

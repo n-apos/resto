@@ -182,11 +182,11 @@
 			"item": [
 				{
 					"name": "Get All Menus",
-					"request": {"method": "GET", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus"]}}
+					"request": {"method": "GET", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals"]}}
 				},
 				{
 					"name": "Get Menu By ID",
-					"request": {"method": "GET", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus/:id", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus", ":id"]}}
+					"request": {"method": "GET", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals/:id", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals", ":id"]}}
 				},
 				{
 					"name": "Create Menu",
@@ -194,7 +194,7 @@
 						"method": "POST",
 						"header": [],
 						"body": {"mode": "raw", "raw": "{\n    \"name\": \"New Menu\"\n}", "options": {"raw": {"language": "json"}}},
-						"url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus"]}
+						"url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals"]}
 					}
 				},
 				{
@@ -203,12 +203,12 @@
 						"method": "PUT",
 						"header": [],
 						"body": {"mode": "raw", "raw": "{\n    \"name\": \"Updated Menu\"\n}", "options": {"raw": {"language": "json"}}},
-						"url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus/:id", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus", ":id"]}
+						"url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals/:id", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals", ":id"]}
 					}
 				},
 				{
 					"name": "Delete Menu by ID",
-					"request": {"method": "DELETE", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus/:id", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus", ":id"]}}
+					"request": {"method": "DELETE", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals/:id", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals", ":id"]}}
 				},
 				{
 					"name": "Delete Many Menus",
@@ -216,12 +216,12 @@
 						"method": "DELETE",
 						"header": [],
 						"body": {"mode": "raw", "raw": "[\n    \"uuid-goes-here\",\n    \"another-uuid-goes-here\"\n]", "options": {"raw": {"language": "json"}}},
-						"url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus"]}
+						"url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals"]}
 					}
 				},
 				{
 					"name": "Delete All Menus",
-					"request": {"method": "DELETE", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menus/all", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menus", "all"]}}
+					"request": {"method": "DELETE", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/meals/all", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "meals", "all"]}}
 				}
 			],
 			"auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]}
@@ -431,7 +431,7 @@
 				},
 				{
 					"name": "Get Menu Category By ID",
-					"request": {"method": "GET", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menu-categories/:menuId/:categoryId", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menu-categories", ":menuId", ":categoryId"]}}
+					"request": {"method": "GET", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menu-categories/:mealId/:categoryId", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menu-categories", ":mealId", ":categoryId"]}}
 				},
 				{
 					"name": "Create Menu Category",
@@ -453,7 +453,7 @@
 				},
 				{
 					"name": "Delete Menu Category by ID",
-					"request": {"method": "DELETE", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menu-categories/:menuId/:categoryId", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menu-categories", ":menuId", ":categoryId"]}}
+					"request": {"method": "DELETE", "header": [], "url": {"raw": "{{protocol}}{{url}}{{port}}{{prefix}}/api/v1/menu-categories/:mealId/:categoryId", "host": ["{{protocol}}{{url}}{{port}}{{prefix}}"], "path": ["api", "v1", "menu-categories", ":mealId", ":categoryId"]}}
 				},
 				{
 					"name": "Delete Many Menu Categories",

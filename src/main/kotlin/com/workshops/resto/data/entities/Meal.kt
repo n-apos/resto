@@ -7,8 +7,8 @@ import java.util.*
 
 @Entity
 @DynamicUpdate
-@Table(name = "menus")
-data class Menu(
+@Table(name = "meals")
+data class Meal(
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -21,9 +21,9 @@ data class Menu(
     var description: String = "",
 
     @OneToMany(
-        mappedBy = "menu",
+        mappedBy = "meal",
         cascade = [CascadeType.ALL],
         orphanRemoval = true,
     )
-    var categories: MutableSet<MenuCategory> = mutableSetOf()
+    var categories: MutableSet<MealCategory> = mutableSetOf()
 )

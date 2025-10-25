@@ -2,7 +2,7 @@ package com.workshops.resto.app.mappers
 
 import com.workshops.resto.app.dtos.OrderItemDto
 import com.workshops.resto.data.entities.Item
-import com.workshops.resto.data.entities.Menu
+import com.workshops.resto.data.entities.Meal
 import com.workshops.resto.data.entities.Order
 import com.workshops.resto.data.entities.OrderItem
 import com.workshops.resto.util.ModelMapper
@@ -17,7 +17,7 @@ class OrderItemMapper : ModelMapper<OrderItem, OrderItemDto> {
                 id = id,
                 orderId = order?.id!!,
                 itemId = item?.id,
-                menuId = menu?.id
+                mealId = meal?.id
             )
         }
 
@@ -27,7 +27,7 @@ class OrderItemMapper : ModelMapper<OrderItem, OrderItemDto> {
                 id = id,
                 order = Order(id = orderId),
                 item = itemId?.let { Item(id = it) },
-                menu = menuId?.let { Menu(id = it) }
+                meal = mealId?.let { Meal(id = it) }
             )
         }
 }

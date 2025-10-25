@@ -1,9 +1,9 @@
 package com.workshops.resto.app.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.*
+import java.util.UUID
 
-data class MenuCategorySpecDto(
+data class MealCategorySpecDto(
     @param:JsonProperty("category_id")
     val categoryId: UUID,
 
