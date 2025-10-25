@@ -21,6 +21,14 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         hbm2ddl: auto
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    url: /v3/api-docs
+    config-url: /v3/api-docs/swagger-config
+
+
 h2:
   tcp:
     enabled: true
